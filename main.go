@@ -24,13 +24,8 @@ func greeting(name string) string {
 	nameString := getFirstName(name)
 	nameString = truncateLongNames(nameString)
 	greetingString = "Hello, " + nameString
-	creators := [3]string{"Robert Griesemer", "Rob Pike", "Ken Thompson"}
-	for i := 0; i < len(creators); i++ {
-		if name == creators[i] {
-			greetingString = greetingString + ". Thanks for creating me!"
-			break
-		}
-	}
+	greetingString = thankGoCreators(greetingString, name)
+	greetingString = processPalindromicName(greetingString, name)
 	return greetingString
 }
 
@@ -47,4 +42,35 @@ func truncateLongNames(nameString string) string {
 		return nameString[:20] + "... Wow, that name's too long for me!"
 	}
 	return nameString
+}
+
+func thankGoCreators(currentGreetingString string, name string) string {
+	creators := [3]string{"Robert Griesemer", "Rob Pike", "Ken Thompson"}
+	for i := 0; i < len(creators); i++ {
+		if name == creators[i] {
+			return addNecessaryPunctuation(currentGreetingString) + "Thanks for creating me!"
+		}
+	}
+	return currentGreetingString
+}
+
+func reverseString(inp string) (reversed string) {
+	for _, inputCharacter := range inp {
+		reversed = string(inputCharacter) + reversed
+	}
+	return
+}
+
+func addNecessaryPunctuation(sentence string) string {
+	if sentence[len(sentence)-1] != ' ' {
+		return sentence + ". "
+	}
+	return sentence
+}
+
+func processPalindromicName(currentGreetingString string, name string) string {
+	if name == reverseString(name) {
+		return addNecessaryPunctuation(currentGreetingString) + "Cool, a palindromic name!"
+	}
+	return currentGreetingString
 }

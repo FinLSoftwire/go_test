@@ -8,7 +8,9 @@ var tests = []struct {
 }{
 	{"Alice", "Hello, Alice"},
 	{"Alice lastname", "Hello, Alice"},
+	{"Robert Griesemer", "Hello, Robert. Thanks for creating me!"},
 	{"Rob Pike", "Hello, Rob. Thanks for creating me!"},
+	{"Ken Thompson", "Hello, Ken. Thanks for creating me!"},
 }
 
 func TestGreeting(t *testing.T) {
