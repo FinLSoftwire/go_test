@@ -9,9 +9,7 @@ import (
 
 func main() {
 	name := getName()
-	if len(name) == 0 {
-		fmt.Println("Ok, no greeting for you")
-	} else {
+	if !handleEmptyName(name) {
 		fmt.Println(greeting(name))
 	}
 }
@@ -21,6 +19,14 @@ func getName() string {
 	fmt.Print("Enter your name: ")
 	scanner.Scan()
 	return scanner.Text()
+}
+
+func handleEmptyName(name string) bool {
+	if len(name) == 0 {
+		fmt.Println("Ok, no greeting for you")
+		return true
+	}
+	return false
 }
 
 func greeting(name string) string {
