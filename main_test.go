@@ -1,6 +1,11 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"io"
+	"os"
+	"testing"
+)
 
 var tests = []struct {
 	name     string
@@ -20,5 +25,19 @@ func TestGreeting(t *testing.T) {
 		if result != test.expected {
 			t.Errorf("Incorrect greeting for name %s, got: %s but expected: %s", test.name, result, test.expected)
 		}
+	}
+	originalStdout := os.Stdout
+	var buf bytes.Buffer
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Fatalf("Failed to create Pipe")
+	}
+	os.Stdout = w
+	main()
+	w.Close()
+	os.Stdout = originalStdout
+	io.Copy(&buf, r)
+	if buf.String() != "Enter your name: Ok, no greeting for you\n" {
+		t.Errorf("Found: %s, expected: Ok, no greeting for you", buf.String())
 	}
 }

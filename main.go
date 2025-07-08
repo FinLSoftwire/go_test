@@ -9,7 +9,11 @@ import (
 
 func main() {
 	name := getName()
-	fmt.Println(greeting(name))
+	if len(name) == 0 {
+		fmt.Println("Ok, no greeting for you")
+	} else {
+		fmt.Println(greeting(name))
+	}
 }
 
 func getName() string {
@@ -61,6 +65,7 @@ func reverseString(inp string) (reversed string) {
 	return
 }
 
+// When adding to a greeting string that does not currently end in a space, assume it needs punctuation
 func addNecessaryPunctuation(sentence string) string {
 	if sentence[len(sentence)-1] != ' ' {
 		return sentence + ". "
