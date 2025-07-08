@@ -7,6 +7,7 @@ var tests = []struct {
 	expected string
 }{
 	{"Alice", "Hello, Alice"},
+	{"Alice lastname", "Hello, Alice"},
 	{"Rob Pike", "Hello, Rob. Thanks for creating me!"},
 }
 
